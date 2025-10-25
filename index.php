@@ -20,7 +20,7 @@ ob_start();
 
 <!-- Hero Section -->
 <section class="gradient-primary text-white py-20 relative overflow-hidden">
-    <div class="absolute inset-0 bg-black opacity-10"></div>
+    <div class="absolute inset-0 bg-black opacity-20"></div>
     <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-4xl mx-auto text-center">
             <h1 class="text-5xl md:text-6xl font-bold mb-6 float-animation">
@@ -42,9 +42,9 @@ ob_start();
     </div>
     
     <!-- Floating elements -->
-    <div class="absolute top-10 left-10 w-20 h-20 bg-white opacity-10 rounded-full float-animation"></div>
-    <div class="absolute bottom-10 right-10 w-32 h-32 bg-white opacity-5 rounded-full float-animation" style="animation-delay: 1s;"></div>
-    <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-white opacity-5 rounded-full float-animation" style="animation-delay: 2s;"></div>
+    <!-- <div class="absolute top-10 left-10 w-20 h-20 bg-white opacity-10 rounded-full float-animation"></div> -->
+    <!-- <div class="absolute bottom-10 right-10 w-32 h-32 bg-white opacity-5 rounded-full float-animation" style="animation-delay: 1s;"></div> -->
+    <!-- <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-white opacity-5 rounded-full float-animation" style="animation-delay: 2s;"></div> -->
 </section>
 
 <!-- Features Section -->
@@ -103,7 +103,7 @@ ob_start();
             </p>
         </div>
         
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
             <!-- VPS NAT Card -->
             <div class="bg-white rounded-3xl shadow-xl overflow-hidden hover-lift">
                 <div class="bg-gradient-to-r from-teal-600 to-teal-400 p-8 text-white text-center relative">
@@ -161,7 +161,7 @@ ob_start();
             
             <!-- VPS Cheap Card -->
             <div class="bg-white rounded-3xl shadow-xl overflow-hidden hover-lift">
-                <div class="bg-gradient-to-r from-green-600 to-green-400 p-8 text-white text-center relative">
+                <div class="bg-gradient-to-r from-red-600 to-gray-400 p-8 text-white text-center relative">
                     <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm">
                         <i class="fas fa-bolt mr-1"></i>Hiệu năng cao
                     </div>
@@ -169,16 +169,68 @@ ob_start();
                         <i class="fas fa-dollar-sign text-3xl"></i>
                     </div>
                     <h3 class="text-3xl font-bold mb-2">VPS Cheap</h3>
-                    <p class="text-green-100">IP riêng - Hiệu năng vượt trội</p>
+                    <p class="text-red-100">IP riêng - Hiệu năng vượt trội</p>
+                </div>
+                
+                <div class="p-8">
+                    <div class="text-center mb-6">
+                        <div class="text-4xl font-bold text-red-600 mb-2">
+                            <?php 
+                            $cheap_min_price = !empty($cheap_packages) ? min(array_column($cheap_packages, 'selling_price')) : 0;
+                            echo formatPrice($cheap_min_price);
+                            ?>
+                        </div>
+                        <div class="text-gray-500">/tháng bắt đầu</div>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-red-500 mr-3"></i>
+                            <span>IP riêng độc lập</span>
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-red-500 mr-3"></i>
+                            <span>Hiệu năng cao cấp</span>
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-red-500 mr-3"></i>
+                            <span>Phù hợp doanh nghiệp</span>
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-red-500 mr-3"></i>
+                            <span>Tối ưu cho ứng dụng lớn</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <a href="packages.php#cheap" class="w-full bg-gradient-to-r from-red-600 to-red-400 hover:from-red-700 hover:to-red-500 text-white py-3 px-6 rounded-lg font-semibold smooth-transition hover-lift text-center block">
+                            <i class="fas fa-eye mr-2"></i>Xem gói VPS Cheap
+                        </a>
+                        <div class="text-center text-sm text-gray-500">
+                            <i class="fas fa-server mr-1"></i>
+                            <?= count($cheap_packages) ?> gói có sẵn
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dedicated -->
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden hover-lift">
+                <div class="bg-gradient-to-r from-green-600 to-green-400 p-8 text-white text-center relative">
+                    <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm">
+                        <i class="fas fa-bolt mr-1"></i>Hiệu năng cao
+                    </div>
+                    <div class="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-dollar-sign text-3xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-2">Máy Chủ Vật Lý</h3>
+                    <p class="text-green-100">IP riêng - Tài Nguyên Vật Lý Riêng</p>
                 </div>
                 
                 <div class="p-8">
                     <div class="text-center mb-6">
                         <div class="text-4xl font-bold text-green-600 mb-2">
-                            <?php 
-                            $cheap_min_price = !empty($cheap_packages) ? min(array_column($cheap_packages, 'selling_price')) : 0;
-                            echo formatPrice($cheap_min_price);
-                            ?>
+                           1,500,000đ
                         </div>
                         <div class="text-gray-500">/tháng bắt đầu</div>
                     </div>
@@ -203,12 +255,12 @@ ob_start();
                     </div>
                     
                     <div class="space-y-3">
-                        <a href="packages.php#cheap" class="w-full bg-gradient-to-r from-green-600 to-green-400 hover:from-green-700 hover:to-green-500 text-white py-3 px-6 rounded-lg font-semibold smooth-transition hover-lift text-center block">
-                            <i class="fas fa-eye mr-2"></i>Xem gói VPS Cheap
+                        <a href="//fb.com/nify.support" class="w-full bg-gradient-to-r from-green-600 to-green-400 hover:from-green-700 hover:to-green-500 text-white py-3 px-6 rounded-lg font-semibold smooth-transition hover-lift text-center block">
+                            <i class="fas fa-eye mr-2"></i> Tư Vấn
                         </a>
                         <div class="text-center text-sm text-gray-500">
                             <i class="fas fa-server mr-1"></i>
-                            <?= count($cheap_packages) ?> gói có sẵn
+                            100 Máy Có Sẵn Hàng
                         </div>
                     </div>
                 </div>
@@ -230,7 +282,7 @@ ob_start();
             ?>
             <?php foreach ($featured_packages as $package): ?>
                 <div class="bg-white rounded-2xl shadow-lg hover-lift overflow-hidden">
-                    <div class="bg-gradient-to-r <?= ($package['category'] ?? 'nat') === 'cheap' ? 'from-green-600 to-green-400' : 'from-teal-600 to-teal-400' ?> p-4 text-white text-center relative">
+                    <div class="bg-gradient-to-r <?= ($package['category'] ?? 'nat') === 'cheap' ? 'from-red-600 to-red-400' : 'from-teal-600 to-teal-400' ?> p-4 text-white text-center relative">
                         <div class="absolute top-2 left-2 bg-white/20 backdrop-blur-sm px-2 py-1 rounded text-xs">
                             <?= ($package['category'] ?? 'nat') === 'cheap' ? 'Cheap' : 'NAT' ?>
                         </div>
@@ -239,7 +291,7 @@ ob_start();
                     
                     <div class="p-6">
                         <div class="text-center mb-4">
-                            <div class="text-2xl font-bold <?= ($package['category'] ?? 'nat') === 'cheap' ? 'text-green-600' : 'text-teal-600' ?>">
+                            <div class="text-2xl font-bold <?= ($package['category'] ?? 'nat') === 'cheap' ? 'text-red-600' : 'text-teal-600' ?>">
                                 <?= formatPrice($package['selling_price']) ?>
                             </div>
                             <div class="text-gray-500 text-sm">/tháng</div>
@@ -247,15 +299,15 @@ ob_start();
                         
                         <div class="space-y-2 mb-4">
                             <div class="flex items-center text-gray-600 text-sm">
-                                <i class="fas fa-microchip w-4 text-<?= ($package['category'] ?? 'nat') === 'cheap' ? 'green-500' : 'teal-500' ?>"></i>
+                                <i class="fas fa-microchip w-4 text-<?= ($package['category'] ?? 'nat') === 'cheap' ? 'red-500' : 'teal-500' ?>"></i>
                                 <span class="ml-2"><?= htmlspecialchars($package['cpu']) ?></span>
                             </div>
                             <div class="flex items-center text-gray-600 text-sm">
-                                <i class="fas fa-memory w-4 text-<?= ($package['category'] ?? 'nat') === 'cheap' ? 'green-500' : 'teal-500' ?>"></i>
+                                <i class="fas fa-memory w-4 text-<?= ($package['category'] ?? 'nat') === 'cheap' ? 'red-500' : 'teal-500' ?>"></i>
                                 <span class="ml-2"><?= htmlspecialchars($package['ram']) ?></span>
                             </div>
                             <div class="flex items-center text-gray-600 text-sm">
-                                <i class="fas fa-hdd w-4 text-<?= ($package['category'] ?? 'nat') === 'cheap' ? 'green-500' : 'teal-500' ?>"></i>
+                                <i class="fas fa-hdd w-4 text-<?= ($package['category'] ?? 'nat') === 'cheap' ? 'red-500' : 'teal-500' ?>"></i>
                                 <span class="ml-2"><?= htmlspecialchars($package['storage']) ?></span>
                             </div>
                         </div>
@@ -263,7 +315,7 @@ ob_start();
                         <?php
                         $packageId = $conn->query("SELECT id FROM vps_packages WHERE name = '{$package['name']}'")->fetch_array()['id'] ?? 0;
                         ?>
-                        <a href="/order.php?id=<?= $packageId ?>" class="w-full bg-gradient-to-r <?= ($package['category'] ?? 'nat') === 'cheap' ? 'from-green-600 to-green-400 hover:from-green-700 hover:to-green-500' : 'from-teal-600 to-teal-400 hover:from-teal-700 hover:to-teal-500' ?> text-white py-2 px-4 rounded-lg font-semibold smooth-transition hover-lift text-center block text-sm">
+                        <a href="/order.php?id=<?= $packageId ?>" class="w-full bg-gradient-to-r <?= ($package['category'] ?? 'nat') === 'cheap' ? 'from-red-600 to-red-400 hover:from-green-700 hover:to-green-500' : 'from-teal-600 to-teal-400 hover:from-teal-700 hover:to-teal-500' ?> text-white py-2 px-4 rounded-lg font-semibold smooth-transition hover-lift text-center block text-sm">
                             <i class="fas fa-shopping-cart mr-1"></i>Đặt mua
                         </a>
                     </div>

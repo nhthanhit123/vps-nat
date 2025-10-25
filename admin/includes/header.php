@@ -16,7 +16,6 @@ $page = getCurrentPage();
     <title><?= $page_title ?? 'Admin Panel' ?></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
@@ -24,8 +23,24 @@ $page = getCurrentPage();
             font-family: 'Inter', sans-serif;
         }
         
+        /* Gradient from green to white */
+        .gradient-primary {
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 25%, #4ade80 50%, #86efac 75%, #ffffff 100%);
+        }
+        
+        .gradient-secondary {
+            background: linear-gradient(135deg, #15803d 0%, #16a34a 50%, #22c55e 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
         .sidebar-gradient {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            background: linear-gradient(135deg, #15803d 0%, #16a34a 100%);
         }
         
         .card-hover {
@@ -35,13 +50,6 @@ $page = getCurrentPage();
         .card-hover:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
         
         .stat-card {
@@ -54,13 +62,13 @@ $page = getCurrentPage();
         }
         
         .sidebar-item:hover {
-            background: rgba(59, 130, 246, 0.1);
-            border-left: 4px solid #3b82f6;
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
         }
         
         .sidebar-item.active {
-            background: rgba(59, 130, 246, 0.15);
-            border-left: 4px solid #3b82f6;
+            background: rgba(34, 197, 94, 0.15);
+            border-left: 4px solid #22c55e;
         }
         
         @media (max-width: 768px) {
@@ -75,14 +83,14 @@ $page = getCurrentPage();
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
             transition: all 0.3s ease;
         }
         
         .btn-primary:hover {
-            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            background: linear-gradient(135deg, #15803d 0%, #16a34a 100%);
             transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 16px rgba(34, 197, 94, 0.3);
         }
         
         .table-hover tbody tr:hover {
@@ -100,7 +108,7 @@ $page = getCurrentPage();
         
         .loading-spinner {
             border: 3px solid #f3f4f6;
-            border-top: 3px solid #3b82f6;
+            border-top: 3px solid #22c55e;
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -118,17 +126,17 @@ $page = getCurrentPage();
     <div class="lg:hidden bg-white shadow-sm border-b border-gray-200 px-4 py-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <button onclick="toggleSidebar()" class="text-gray-600 hover:text-gray-900">
+                <button onclick="toggleSidebar()" class="text-gray-600 hover:text-green-600">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
                 <h1 class="text-xl font-bold gradient-text">Admin Panel</h1>
             </div>
             <div class="flex items-center space-x-3">
-                <button class="relative text-gray-600 hover:text-gray-900">
+                <button class="relative text-gray-600 hover:text-green-600">
                     <i class="fas fa-bell text-xl"></i>
                     <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                 </button>
-                <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                <div class="w-8 h-8 bg-gradient-to-r from-green-600 to-green-400 rounded-full flex items-center justify-center text-white text-sm font-bold">
                     <?= substr($_SESSION['username'], 0, 1) ?>
                 </div>
             </div>
@@ -140,7 +148,7 @@ $page = getCurrentPage();
         <aside id="sidebar" class="sidebar-gradient text-white w-64 min-h-screen fixed lg:relative lg:translate-x-0 sidebar-mobile z-30">
             <div class="p-6">
                 <div class="flex items-center space-x-3 mb-8">
-                    <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                    <div class="w-10 h-10 bg-gradient-to-r from-green-600 to-green-400 rounded-lg flex items-center justify-center">
                         <i class="fas fa-cog text-white text-xl"></i>
                     </div>
                     <h1 class="text-xl font-bold">Admin Panel</h1>
@@ -175,6 +183,10 @@ $page = getCurrentPage();
                         <i class="fas fa-redo w-5"></i>
                         <span>Renewals</span>
                     </a>
+                    <a href="website_settings.php" class="sidebar-item <?= $page == 'website_settings' ? 'active' : '' ?> flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white">
+                        <i class="fas fa-palette w-5"></i>
+                        <span>Website Settings</span>
+                    </a>
                     <a href="settings.php" class="sidebar-item <?= $page == 'settings' ? 'active' : '' ?> flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white">
                         <i class="fas fa-cog w-5"></i>
                         <span>Settings</span>
@@ -185,7 +197,7 @@ $page = getCurrentPage();
             <!-- User Info -->
             <div class="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-700">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                    <div class="w-10 h-10 bg-gradient-to-r from-green-600 to-green-400 rounded-full flex items-center justify-center text-white font-bold">
                         <?= substr($_SESSION['username'], 0, 1) ?>
                     </div>
                     <div class="flex-1">
@@ -209,11 +221,11 @@ $page = getCurrentPage();
                         <p class="text-gray-600"><?= $header_description ?? 'Welcome to admin panel' ?></p>
                     </div>
                     <div class="flex items-center space-x-4">
-                        <button class="relative text-gray-600 hover:text-gray-900">
+                        <button class="relative text-gray-600 hover:text-green-600">
                             <i class="fas fa-bell text-xl"></i>
                             <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                         </button>
-                        <a href="../index.php" class="text-gray-600 hover:text-gray-900">
+                        <a href="../index.php" class="text-gray-600 hover:text-green-600">
                             <i class="fas fa-external-link-alt text-xl"></i>
                         </a>
                     </div>

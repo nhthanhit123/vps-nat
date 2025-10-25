@@ -94,15 +94,15 @@ ob_start();
             </p>
             <div class="flex flex-wrap justify-center gap-4 mt-6">
                 <div class="bg-white rounded-lg px-4 py-2 shadow-sm">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <i class="fas fa-check text-red-500 mr-2"></i>
                     <span class="text-sm">IP chia sẻ</span>
                 </div>
                 <div class="bg-white rounded-lg px-4 py-2 shadow-sm">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <i class="fas fa-check text-red-500 mr-2"></i>
                     <span class="text-sm">Tiết kiệm chi phí</span>
                 </div>
                 <div class="bg-white rounded-lg px-4 py-2 shadow-sm">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <i class="fas fa-check text-red-500 mr-2"></i>
                     <span class="text-sm">Dễ sử dụng</span>
                 </div>
             </div>
@@ -215,8 +215,8 @@ ob_start();
     <div class="container mx-auto px-4">
         <!-- Category Header -->
         <div class="text-center mb-12">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-                <i class="fas fa-dollar-sign text-green-600 text-2xl"></i>
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-4">
+                <i class="fas fa-dollar-sign text-red-600 text-2xl"></i>
             </div>
             <h2 class="text-3xl font-bold text-gray-800 mb-4">VPS Cheap</h2>
             <p class="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -224,15 +224,15 @@ ob_start();
             </p>
             <div class="flex flex-wrap justify-center gap-4 mt-6">
                 <div class="bg-white rounded-lg px-4 py-2 shadow-sm">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <i class="fas fa-check text-red-500 mr-2"></i>
                     <span class="text-sm">IP riêng</span>
                 </div>
                 <div class="bg-white rounded-lg px-4 py-2 shadow-sm">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <i class="fas fa-check text-red-500 mr-2"></i>
                     <span class="text-sm">Hiệu năng cao</span>
                 </div>
                 <div class="bg-white rounded-lg px-4 py-2 shadow-sm">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <i class="fas fa-check text-red-500 mr-2"></i>
                     <span class="text-sm">Giá siêu rẻ</span>
                 </div>
             </div>
@@ -242,7 +242,7 @@ ob_start();
         <div id="cheapPackagesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             <?php if (!empty($cheap_packages)): ?>
                 <?php foreach ($cheap_packages as $package): ?>
-                    <div class="package-card bg-white rounded-2xl shadow-lg hover-lift overflow-hidden border-2 border-transparent hover:border-green-200" 
+                    <div class="package-card bg-white rounded-2xl shadow-lg hover-lift overflow-hidden border-2 border-transparent hover:border-red-200" 
                          data-category="cheap"
                          data-price="<?= $package['selling_price'] ?>"
                          data-name="<?= htmlspecialchars($package['name']) ?>"
@@ -253,18 +253,18 @@ ob_start();
                         
                         <!-- Popular Badge -->
                         <?php if ($package['selling_price'] <= 150000): ?>
-                            <div class="absolute top-4 right-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full text-xs font-semibold z-10 shadow-lg">
+                            <div class="absolute top-4 right-4 bg-red-500 to-emerald-500 text-white px-3 py-1 rounded-full text-xs font-semibold z-10 shadow-lg">
                                 <i class="fas fa-fire mr-1"></i>Giá tốt
                             </div>
                         <?php endif; ?>
                         
                         <!-- Category Badge -->
-                        <div class="absolute top-4 left-4 bg-green-600 text-white px-3 py-1 rounded-full text-xs font-semibold z-10 shadow-lg">
+                        <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold z-10 shadow-lg">
                             <i class="fas fa-dollar-sign mr-1"></i>Cheap
                         </div>
                         
                         <!-- Header -->
-                        <div class="bg-gradient-to-r from-green-600 to-green-400 p-6 text-white text-center">
+                        <div class="bg-gradient-to-r from-red-600 to-red-400 p-6 text-white text-center">
                             <h3 class="text-xl font-bold mb-2"><?= htmlspecialchars($package['name']) ?></h3>
                             <div class="text-3xl font-bold">
                                 <?= formatPrice($package['selling_price']) ?>
@@ -284,32 +284,32 @@ ob_start();
                         <div class="p-6">
                             <div class="space-y-3 mb-6">
                                 <div class="flex items-center text-gray-600">
-                                    <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                                        <i class="fas fa-microchip text-green-600 text-sm"></i>
+                                    <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-microchip text-red-600 text-sm"></i>
                                     </div>
                                     <span class="text-sm font-medium"><?= htmlspecialchars($package['cpu']) ?></span>
                                 </div>
                                 <div class="flex items-center text-gray-600">
-                                    <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                                        <i class="fas fa-memory text-green-600 text-sm"></i>
+                                    <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-memory text-red-600 text-sm"></i>
                                     </div>
                                     <span class="text-sm font-medium"><?= htmlspecialchars($package['ram']) ?></span>
                                 </div>
                                 <div class="flex items-center text-gray-600">
-                                    <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                                        <i class="fas fa-hdd text-green-600 text-sm"></i>
+                                    <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-hdd text-red-600 text-sm"></i>
                                     </div>
                                     <span class="text-sm font-medium"><?= htmlspecialchars($package['storage']) ?></span>
                                 </div>
                                 <div class="flex items-center text-gray-600">
-                                    <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                                        <i class="fas fa-wifi text-green-600 text-sm"></i>
+                                    <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-wifi text-red-600 text-sm"></i>
                                     </div>
                                     <span class="text-sm font-medium"><?= htmlspecialchars($package['bandwidth'] ?? 'Unlimited') ?></span>
                                 </div>
                                 <div class="flex items-center text-gray-600">
-                                    <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                                        <i class="fas fa-globe text-green-600 text-sm"></i>
+                                    <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-globe text-red-600 text-sm"></i>
                                     </div>
                                     <span class="text-sm font-medium"><?= htmlspecialchars($package['port_speed']) ?></span>
                                 </div>
@@ -318,11 +318,11 @@ ob_start();
                             <!-- Actions -->
                             <div class="space-y-3">
                                 <a href="order.php?id=<?= $package['id'] ?>" 
-                                   class="w-full bg-gradient-to-r from-green-600 to-green-400 hover:from-green-700 hover:to-green-500 text-white py-3 px-4 rounded-lg font-semibold smooth-transition hover-lift text-center block">
+                                   class="w-full bg-gradient-to-r from-red-600 to-red-400 hover:from-red-700 hover:to-red-500 text-white py-3 px-4 rounded-lg font-semibold smooth-transition hover-lift text-center block">
                                     <i class="fas fa-shopping-cart mr-2"></i>Đặt mua ngay
                                 </a>
                                 <button onclick="showPackageDetails(<?= htmlspecialchars(json_encode($package)) ?>)" 
-                                        class="w-full border border-green-500 hover:bg-green-50 text-green-600 py-3 px-4 rounded-lg font-semibold smooth-transition">
+                                        class="w-full border border-red-500 hover:bg-red-50 text-red-600 py-3 px-4 rounded-lg font-semibold smooth-transition">
                                     <i class="fas fa-info-circle mr-2"></i>Xem chi tiết
                                 </button>
                             </div>
@@ -372,7 +372,7 @@ function switchCategory(category) {
         natTab.classList.add('bg-white', 'text-teal-600', 'shadow-sm');
         natTab.classList.remove('text-gray-600', 'hover:text-gray-800');
         
-        cheapTab.classList.remove('bg-white', 'text-green-600', 'shadow-sm');
+        cheapTab.classList.remove('bg-white', 'text-red-600', 'shadow-sm');
         cheapTab.classList.add('text-gray-600', 'hover:text-gray-800');
         
         resultCount.textContent = `Hiển thị <?= count($nat_packages) ?> gói`;
@@ -380,7 +380,7 @@ function switchCategory(category) {
         natSection.classList.add('hidden');
         cheapSection.classList.remove('hidden');
         
-        cheapTab.classList.add('bg-white', 'text-green-600', 'shadow-sm');
+        cheapTab.classList.add('bg-white', 'text-red-600', 'shadow-sm');
         cheapTab.classList.remove('text-gray-600', 'hover:text-gray-800');
         
         natTab.classList.remove('bg-white', 'text-teal-600', 'shadow-sm');
@@ -398,7 +398,7 @@ function showPackageDetails(package) {
     modalTitle.textContent = package.name;
     
     const categoryBadge = package.category === 'cheap' 
-        ? '<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold"><i class="fas fa-dollar-sign mr-1"></i>VPS Cheap</span>'
+        ? '<span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold"><i class="fas fa-dollar-sign mr-1"></i>VPS Cheap</span>'
         : '<span class="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm font-semibold"><i class="fas fa-network-wired mr-1"></i>VPS NAT</span>';
     
     modalContent.innerHTML = `
@@ -407,8 +407,8 @@ function showPackageDetails(package) {
                 ${categoryBadge}
                 <div class="text-3xl font-bold text-gray-800 mt-4">${formatPrice(package.selling_price)}/tháng</div>
                 ${package.original_price > package.selling_price ? `
-                    <div class="text-lg text-gray-500 line-through">${formatPrice(package.original_price)}/tháng</div>
-                    <div class="text-sm text-green-600 font-semibold">Tiết kiệm ${Math.round(((package.original_price - package.selling_price) / package.original_price) * 100)}%</div>
+                    <div class="text-lg text-gray-500 line-through">${formatPrice(package.original_price * 1.6)}/tháng</div>
+                    <div class="text-sm text-red-600 font-semibold">Tiết kiệm ${Math.round(((package.original_price - package.selling_price) / package.original_price) * 100)}%</div>
                 ` : ''}
             </div>
             
@@ -446,13 +446,13 @@ function showPackageDetails(package) {
             <div class="bg-gray-50 rounded-lg p-4">
                 <div class="flex items-center text-gray-600 mb-2">
                     <i class="fas fa-globe mr-2"></i>
-                    <span class="text-sm font-medium">Vị trí</span>
+                    <span class="text-sm font-medium">Port Speed</span>
                 </div>
-                <div class="text-lg font-semibold text-gray-800">${package.location}</div>
+                <div class="text-lg font-semibold text-gray-800">${package.port_speed}</div>
             </div>
             
             <div class="flex space-x-4">
-                <a href="order.php?id=${package.id}" class="flex-1 bg-gradient-to-r ${package.category === 'cheap' ? 'from-green-600 to-green-400 hover:from-green-700 hover:to-green-500' : 'from-teal-600 to-teal-400 hover:from-teal-700 hover:to-teal-500'} text-white py-3 px-6 rounded-lg font-semibold smooth-transition text-center">
+                <a href="order.php?id=${package.id}" class="flex-1 bg-gradient-to-r ${package.category === 'cheap' ? 'from-red-600 to-red-400 hover:from-red-700 hover:to-red-500' : 'from-teal-600 to-teal-400 hover:from-teal-700 hover:to-teal-500'} text-white py-3 px-6 rounded-lg font-semibold smooth-transition text-center">
                     <i class="fas fa-shopping-cart mr-2"></i>Đặt mua ngay
                 </a>
                 <button onclick="closePackageModal()" class="flex-1 border border-gray-300 hover:bg-gray-50 text-gray-700 py-3 px-6 rounded-lg font-semibold smooth-transition">
@@ -488,6 +488,4 @@ document.getElementById('packageModal').addEventListener('click', function(e) {
 $content = ob_get_clean();
 
 include 'includes/header.php';
-echo $content;
-include 'includes/footer.php';
 ?>

@@ -1,6 +1,6 @@
 <?php
-require_once 'config.php';
-require_once 'database.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/database.php';
 
 function fetchVpsPackages() {
     $sql = "SELECT * FROM vps_packages WHERE status = 'active' ORDER BY selling_price ASC";
@@ -205,5 +205,115 @@ function redirect($url) {
 function sendTelegramNotification($message) {
     // Implementation for Telegram notification
     return true;
+}
+
+// Website Settings Functions
+function getWebsiteSettings() {
+    $settings_file = __DIR__ . '/../website_settings.json';
+    if (file_exists($settings_file)) {
+        $json = file_get_contents($settings_file);
+        return json_decode($json, true) ?: [];
+    }
+    return [];
+}
+
+function saveWebsiteSettings($settings) {
+    $settings_file = __DIR__ . '/../website_settings.json';
+    $json = json_encode($settings, JSON_PRETTY_PRINT);
+    return file_put_contents($settings_file, $json) !== false;
+}
+
+function getWebsiteSetting($key, $default = null) {
+    $settings = getWebsiteSettings();
+    return $settings[$key] ?? $default;
+}
+
+// CardV2 API Functions
+function createCardPayment($data) {
+    $api_key = getWebsiteSetting('cardv2_api_key');
+    $api_url = 'https://api.cardv2.vn/api/create';
+    
+    $post_data = [
+        'api_key' => $api_key,
+        'card_type' => $data['card_type'],
+        'card_amount' => $data['card_amount'],
+        'card_code' => $data['card_code'],
+        'card_serial' => $data['card_serial'],
+        'request_id' => $data['request_id'] ?? uniqid(),
+        'callback_url' => BASE_URL . '/cardv2_callback.php'
+    ];
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $api_url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post_data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    
+    $response = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    
+    if ($http_code === 200) {
+        return json_decode($response, true);
+    }
+    
+    return ['error' => 'API request failed'];
+}
+
+function checkCardStatus($request_id) {
+    $api_key = getWebsiteSetting('cardv2_api_key');
+    $api_url = 'https://api.cardv2.vn/api/check';
+    
+    $post_data = [
+        'api_key' => $api_key,
+        'request_id' => $request_id
+    ];
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $api_url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post_data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    
+    $response = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    
+    if ($http_code === 200) {
+        return json_decode($response, true);
+    }
+    
+    return ['error' => 'API request failed'];
+}
+
+// VPS Expiry Check Functions
+function checkVpsExpiry() {
+    $sql = "SELECT vo.*, u.username, u.email, u.full_name, vp.name as package_name 
+            FROM vps_orders vo 
+            LEFT JOIN users u ON vo.user_id = u.id 
+            LEFT JOIN vps_packages vp ON vo.package_id = vp.id 
+            WHERE vo.status = 'active' 
+            AND vo.expiry_date <= DATE_ADD(CURRENT_DATE, INTERVAL 3 DAY)
+            AND vo.expiry_date >= CURRENT_DATE()";
+    
+    return fetchAll($sql);
+}
+
+function updateVpsStatus($order_id, $status) {
+    return updateData('vps_orders', ['status' => $status], 'id = ?', [$order_id]);
+}
+
+function sendExpiryNotification($order, $days_left) {
+    $message = "⚠️ <b>VPS sắp hết hạn</b>\n\n";
+    $message .= "👤 <b>Khách hàng:</b> {$order['full_name']} ({$order['username']})\n";
+    $message .= "📧 <b>Email:</b> {$order['email']}\n\n";
+    $message .= "🖥️ <b>Gói VPS:</b> {$order['package_name']}\n";
+    $message .= "📅 <b>Ngày hết hạn:</b> " . formatDate($order['expiry_date']) . "\n";
+    $message .= "⏰ <b>Còn lại:</b> {$days_left} ngày\n\n";
+    $message .= "🔗 <b>Link quản lý:</b> " . BASE_URL . "/admin/orders.php";
+    
+    return sendTelegramNotification($message);
 }
 ?>

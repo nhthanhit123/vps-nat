@@ -77,7 +77,15 @@ ob_start();
     <div class="container mx-auto px-4 relative z-10">
         <div class="text-center">
             <h1 class="text-3xl md:text-4xl font-bold mb-4">Nạp tiền tài khoản</h1>
-            <p class="text-lg text-teal-100">Nạp tiền an toàn, nhanh chóng để sử dụng các dịch vụ VPS của chúng tôi</p>
+            <p class="text-lg text-green-100">Nạp tiền an toàn, nhanh chóng để sử dụng các dịch vụ VPS của chúng tôi</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+                <a href="#bank-transfer" class="bg-white text-green-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold smooth-transition hover-lift">
+                    <i class="fas fa-university mr-2"></i>Chuyển khoản
+                </a>
+                <a href="card_recharge.php" class="border-2 border-white hover:bg-white hover:text-green-600 text-white px-6 py-3 rounded-lg font-semibold smooth-transition">
+                    <i class="fas fa-credit-card mr-2"></i>Thẻ cào
+                </a>
+            </div>
         </div>
     </div>
 </section>
@@ -86,10 +94,10 @@ ob_start();
 <section class="py-8 bg-white">
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
-            <div class="bg-gradient-to-r from-teal-600 to-teal-400 rounded-2xl p-8 text-white text-center">
+            <div class="bg-gradient-to-r from-green-600 to-green-400 rounded-2xl p-8 text-white text-center">
                 <h3 class="text-xl font-semibold mb-2">Số dư hiện tại</h3>
                 <p class="text-4xl font-bold mb-4"><?= formatPrice($_SESSION['balance']) ?></p>
-                <p class="text-teal-100">Nạp thêm tiền để sử dụng dịch vụ VPS cao cấp</p>
+                <p class="text-green-100">Nạp thêm tiền để sử dụng dịch vụ VPS cao cấp</p>
             </div>
         </div>
     </div>
@@ -119,7 +127,7 @@ ob_start();
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Deposit Form -->
                 <div class="lg:col-span-2">
-                    <div class="bg-white rounded-2xl shadow-sm p-8">
+                    <div class="bg-white rounded-2xl shadow-sm p-8" id="bank-transfer">
                         <h2 class="text-2xl font-bold text-gray-900 mb-6">Thông tin chuyển khoản</h2>
                         
                         <?php if (!empty($errors)): ?>
@@ -142,12 +150,12 @@ ob_start();
                             <!-- Bank Selection -->
                             <div class="mb-8">
                                 <label class="block text-sm font-medium text-gray-700 mb-4">
-                                    <i class="fas fa-university mr-1 text-teal-600"></i>
+                                    <i class="fas fa-university mr-1 text-green-600"></i>
                                     Chọn ngân hàng <span class="text-red-500">*</span>
                                 </label>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <?php foreach ($bank_accounts as $bank): ?>
-                                        <label class="bank-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer hover:border-teal-500 smooth-transition">
+                                        <label class="bank-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer hover:border-green-500 smooth-transition">
                                             <input type="radio" name="bank_code" value="<?= $bank['bank_code'] ?>" 
                                                    class="sr-only bank-radio" required>
                                             <div class="flex items-center">
@@ -167,9 +175,9 @@ ob_start();
                             
                             <!-- Selected Bank Info -->
                             <div id="selectedBankInfo" class="hidden mb-8">
-                                <div class="bg-gradient-to-r from-teal-50 to-blue-50 rounded-xl p-6">
+                                <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6">
                                     <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
-                                        <i class="fas fa-info-circle text-teal-600 mr-2"></i>
+                                        <i class="fas fa-info-circle text-green-600 mr-2"></i>
                                         Thông tin chuyển khoản
                                     </h4>
                                     <div id="bankDetails"></div>
@@ -182,12 +190,12 @@ ob_start();
                             <!-- Amount Input -->
                             <div class="mb-6">
                                 <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    <i class="fas fa-dollar-sign mr-1 text-teal-600"></i>
+                                    <i class="fas fa-dollar-sign mr-1 text-green-600"></i>
                                     Số tiền nạp <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
                                     <input type="number" name="amount" id="amount" required
-                                           class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                                           class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
                                            placeholder="Nhập số tiền" min="10000" max="50000000" step="1000">
                                     <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500">VNĐ</span>
                                 </div>
@@ -203,22 +211,22 @@ ob_start();
                             <!-- Transaction ID -->
                             <div class="mb-6">
                                 <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    <i class="fas fa-receipt mr-1 text-teal-600"></i>
+                                    <i class="fas fa-receipt mr-1 text-green-600"></i>
                                     Mã giao dịch (không bắt buộc)
                                 </label>
                                 <input type="text" name="transaction_id" id="transaction_id"
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
                                        placeholder="Nhập mã giao dịch nếu có">
                             </div>
                             
                             <!-- Notes -->
                             <div class="mb-6">
                                 <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    <i class="fas fa-comment mr-1 text-teal-600"></i>
+                                    <i class="fas fa-comment mr-1 text-green-600"></i>
                                     Ghi chú (không bắt buộc)
                                 </label>
                                 <textarea name="notes" id="notes" rows="3"
-                                          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                                          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
                                           placeholder="Nhập ghi chú nếu có"></textarea>
                             </div>
                             
@@ -249,7 +257,7 @@ ob_start();
                             </div>
                             
                             <button type="submit" 
-                                    class="w-full bg-gradient-to-r from-teal-600 to-teal-400 hover:from-teal-700 hover:to-teal-500 text-white py-4 px-6 rounded-lg font-semibold smooth-transition hover-lift">
+                                    class="w-full bg-gradient-to-r from-green-600 to-green-400 hover:from-green-700 hover:to-green-500 text-white py-4 px-6 rounded-lg font-semibold smooth-transition hover-lift">
                                 <i class="fas fa-paper-plane mr-2"></i>
                                 Gửi yêu cầu nạp tiền
                             </button>

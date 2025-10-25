@@ -23,14 +23,6 @@ function getTelegramChatId() {
     return $telegram_chat_id;
 }
 
-function formatPrice($price) {
-    return number_format($price, 0, ',', '.') . ' VNĐ';
-}
-
-function formatDate($date) {
-    return date('d/m/Y H:i', strtotime($date));
-}
-
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
@@ -41,19 +33,6 @@ function generateRandomString($length = 10) {
     return $randomString;
 }
 
-function isLoggedIn() {
-    return isset($_SESSION['user_id']);
-}
-
-function isAdmin() {
-    return isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin';
-}
-
-function redirect($url) {
-    header("Location: $url");
-    exit();
-}
-
 function cleanInput($data) {
     $data = trim($data);
     $data = stripslashes($data);
@@ -61,29 +40,4 @@ function cleanInput($data) {
     return $data;
 }
 
-function sendTelegramNotification($message) {
-    $bot_token = getTelegramBotToken();
-    $chat_id = getTelegramChatId();
-    
-    if ($bot_token == 'YOUR_TELEGRAM_BOT_TOKEN' || $chat_id == 'YOUR_TELEGRAM_CHAT_ID') {
-        return false;
-    }
-    
-    $url = "https://api.telegram.org/bot$bot_token/sendMessage";
-    $data = [
-        'chat_id' => $chat_id,
-        'text' => $message,
-        'parse_mode' => 'HTML'
-    ];
-    
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $result = curl_exec($ch);
-    curl_close($ch);
-    
-    return $result;
-}
 ?>
