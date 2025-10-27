@@ -166,10 +166,6 @@ sendAdminAccessNotification();
                         <i class="fas fa-dollar-sign w-5"></i>
                         <span>Nạp Tiền</span>
                     </a>
-                    <a href="banks.php" class="sidebar-item <?= $page == 'banks' ? 'active' : '' ?> flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white">
-                        <i class="fas fa-university w-5"></i>
-                        <span>Ngân Hàng</span>
-                    </a>
                     <a href="packages.php" class="sidebar-item <?= $page == 'packages' ? 'active' : '' ?> flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white">
                         <i class="fas fa-box w-5"></i>
                         <span>Gói Dịch Vụ</span>

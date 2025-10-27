@@ -526,38 +526,30 @@ function closeDetailsModal() {
 }
 
 function loadRenewalHistory(orderId) {
-    fetch(`api/renewal_history.php?order_id=${orderId}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const renewalHistory = data.data;
-                const historyHtml = renewalHistory.length > 0 
-                    ? renewalHistory.map(renewal => `
-                        <div class="border-l-4 border-teal-500 pl-4 mb-3">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <p class="font-medium text-gray-900">Gia hạn ${renewal.months} tháng</p>
-                                    <p class="text-sm text-gray-600">${formatDate(renewal.created_at)}</p>
-                                </div>
-                                <div class="text-right">
-                                    <p class="font-medium text-teal-600">${formatPrice(renewal.price)}</p>
-                                    <p class="text-xs text-gray-500">${renewal.status === 'completed' ? 'Hoàn thành' : 'Chờ xử lý'}</p>
-                                </div>
-                            </div>
-                            ${renewal.old_expiry_date ? `<p class="text-xs text-gray-500 mt-1">Từ: ${formatDate(renewal.old_expiry_date)} → ${formatDate(renewal.new_expiry_date)}</p>` : ''}
+    // This would typically be an AJAX call to fetch renewal history
+    // For now, we'll show a placeholder
+    setTimeout(() => {
+        const renewalHistory = <?= json_encode([]) ?>; // Empty array for now
+        const historyHtml = renewalHistory.length > 0 
+            ? renewalHistory.map(renewal => `
+                <div class="border-l-4 border-teal-500 pl-4 mb-3">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="font-medium text-gray-900">Gia hạn ${renewal.months} tháng</p>
+                            <p class="text-sm text-gray-600">${formatDate(renewal.created_at)}</p>
                         </div>
-                    `).join('')
-                    : '<p class="text-gray-500 text-sm">Chưa có lịch sử gia hạn nào.</p>';
-                
-                document.getElementById(`renewalHistory_${orderId}`).innerHTML = historyHtml;
-            } else {
-                document.getElementById(`renewalHistory_${orderId}`).innerHTML = '<p class="text-red-500 text-sm">Không thể tải lịch sử gia hạn.</p>';
-            }
-        })
-        .catch(error => {
-            console.error('Error loading renewal history:', error);
-            document.getElementById(`renewalHistory_${orderId}`).innerHTML = '<p class="text-red-500 text-sm">Lỗi khi tải lịch sử gia hạn.</p>';
-        });
+                        <div class="text-right">
+                            <p class="font-medium text-teal-600">${formatPrice(renewal.price)}</p>
+                            <p class="text-xs text-gray-500">${renewal.status === 'completed' ? 'Hoàn thành' : 'Chờ xử lý'}</p>
+                        </div>
+                    </div>
+                    ${renewal.old_expiry_date ? `<p class="text-xs text-gray-500 mt-1">Từ: ${formatDate(renewal.old_expiry_date)} → ${formatDate(renewal.new_expiry_date)}</p>` : ''}
+                </div>
+            `).join('')
+            : '<p class="text-gray-500 text-sm">Chưa có lịch sử gia hạn nào.</p>';
+        
+        document.getElementById(`renewalHistory_${orderId}`).innerHTML = historyHtml;
+    }, 500);
 }
 
 function getStatusText(status) {

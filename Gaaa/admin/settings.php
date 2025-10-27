@@ -68,37 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['success_message'] = 'Cập nhật cài đặt website thành công!';
         redirect('settings.php');
     }
-    
-    if (isset($_POST['save_appearance'])) {
-        // Handle logo upload
-        if (isset($_FILES['site_logo']) && $_FILES['site_logo']['error'] == 0) {
-            $logo_path = uploadFile('site_logo', 'uploads/');
-            if ($logo_path) {
-                updateData('site_settings', ['setting_value' => $logo_path], 'setting_key = ?', ['site_logo']);
-            }
-        }
-        
-        // Handle favicon upload
-        if (isset($_FILES['site_favicon']) && $_FILES['site_favicon']['error'] == 0) {
-            $favicon_path = uploadFile('site_favicon', 'uploads/');
-            if ($favicon_path) {
-                updateData('site_settings', ['setting_value' => $favicon_path], 'setting_key = ?', ['site_favicon']);
-            }
-        }
-        
-        // Handle logo URL
-        if (isset($_POST['site_logo_url'])) {
-            updateData('site_settings', ['setting_value' => cleanInput($_POST['site_logo_url'])], 'setting_key = ?', ['site_logo']);
-        }
-        
-        // Handle favicon URL
-        if (isset($_POST['site_favicon_url'])) {
-            updateData('site_settings', ['setting_value' => cleanInput($_POST['site_favicon_url'])], 'setting_key = ?', ['site_favicon']);
-        }
-        
-        $_SESSION['success_message'] = 'Cập nhật giao diện thành công!';
-        redirect('settings.php');
-    }
 }
 
 // Get current settings
@@ -180,10 +149,6 @@ ob_start();
             <button onclick="showTab('site')" id="site-tab" 
                     class="tab-button py-4 px-6 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium">
                 <i class="fas fa-globe mr-2"></i>Website
-            </button>
-            <button onclick="showTab('appearance')" id="appearance-tab" 
-                    class="tab-button py-4 px-6 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium">
-                <i class="fas fa-image mr-2"></i>Logo & Icon
             </button>
             <button onclick="showTab('system')" id="system-tab" 
                     class="tab-button py-4 px-6 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium">
@@ -360,97 +325,6 @@ ob_start();
                 <button type="submit" 
                         class="btn-primary text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
                     <i class="fas fa-save mr-2"></i>Lưu cài đặt Website
-                </button>
-            </div>
-        </form>
-    </div>
-
-    <!-- Appearance Settings -->
-    <div id="appearance-content" class="tab-content p-6 hidden">
-        <h3 class="text-lg font-semibold text-gray-900 mb-6">Cài đặt Logo & Icon</h3>
-        
-        <form method="POST" enctype="multipart/form-data" class="space-y-6">
-            <input type="hidden" name="save_appearance" value="1">
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Logo Settings -->
-                <div>
-                    <h4 class="font-medium text-gray-900 mb-4">Logo Website</h4>
-                    
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Upload Logo</label>
-                            <input type="file" name="site_logo" accept="image/*" 
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500">
-                            <p class="mt-1 text-sm text-gray-500">Chấp nhận: JPG, PNG, GIF. Tối đa: 5MB</p>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Hoặc nhập URL Logo</label>
-                            <input type="url" name="site_logo_url" 
-                                   value="<?= htmlspecialchars($site_settings['site_logo'] ?? '') ?>"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500"
-                                   placeholder="https://example.com/logo.png">
-                        </div>
-                        
-                        <?php if (!empty($site_settings['site_logo'])): ?>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <p class="text-sm font-medium text-gray-700 mb-2">Logo hiện tại:</p>
-                            <img src="<?= htmlspecialchars($site_settings['site_logo']) ?>" 
-                                 alt="Logo" style="max-height: 80px;" class="border rounded">
-                        </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                
-                <!-- Favicon Settings -->
-                <div>
-                    <h4 class="font-medium text-gray-900 mb-4">Favicon (Icon)</h4>
-                    
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Upload Favicon</label>
-                            <input type="file" name="site_favicon" accept="image/*,.ico" 
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500">
-                            <p class="mt-1 text-sm text-gray-500">Chấp nhận: ICO, PNG, JPG. Tối đa: 5MB. Khuyến nghị: 32x32px</p>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Hoặc nhập URL Favicon</label>
-                            <input type="url" name="site_favicon_url" 
-                                   value="<?= htmlspecialchars($site_settings['site_favicon'] ?? '') ?>"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500"
-                                   placeholder="https://example.com/favicon.ico">
-                        </div>
-                        
-                        <?php if (!empty($site_settings['site_favicon'])): ?>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <p class="text-sm font-medium text-gray-700 mb-2">Favicon hiện tại:</p>
-                            <img src="<?= htmlspecialchars($site_settings['site_favicon']) ?>" 
-                                 alt="Favicon" style="max-height: 32px;" class="border rounded">
-                        </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <h4 class="font-medium text-blue-900 mb-2">
-                    <i class="fas fa-info-circle mr-2"></i>Lưu ý quan trọng
-                </h4>
-                <ul class="text-sm text-blue-800 space-y-1">
-                    <li>• Logo nên có kích thước đề xuất: chiều rộng 200-300px, chiều cao 50-80px</li>
-                    <li>• Favicon nên là hình vuông 32x32px hoặc 16x16px</li>
-                    <li>• Ưu tiên sử dụng định dạng PNG cho logo để có chất lượng tốt nhất</li>
-                    <li>• Favicon hỗ trợ các định dạng: .ico, .png, .jpg</li>
-                    <li>• Các file sẽ được lưu trong thư mục uploads/</li>
-                </ul>
-            </div>
-            
-            <div class="flex justify-end">
-                <button type="submit" 
-                        class="btn-primary text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
-                    <i class="fas fa-save mr-2"></i>Lưu cài đặt Giao diện
                 </button>
             </div>
         </form>

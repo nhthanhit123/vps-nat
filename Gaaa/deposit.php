@@ -74,23 +74,10 @@ ob_start();
                                                 <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-bold mr-4">
                                                     <?= strtoupper(substr($bank['bank_code'], 0, 2)) ?>
                                                 </div>
-                                                <div class="flex-1">
+                                                <div>
                                                     <div class="font-semibold text-gray-900"><?= htmlspecialchars($bank['bank_name']) ?></div>
                                                     <div class="text-sm text-gray-500"><?= htmlspecialchars($bank['account_number']) ?></div>
                                                     <div class="text-xs text-gray-400"><?= htmlspecialchars($bank['account_name']) ?></div>
-                                                    <?php if ($bank['apibanklink']): ?>
-                                                        <div class="mt-1">
-                                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-                                                                <i class="fas fa-robot mr-1"></i>Auto
-                                                            </span>
-                                                        </div>
-                                                    <?php else: ?>
-                                                        <div class="mt-1">
-                                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">
-                                                                <i class="fas fa-user mr-1"></i>Thủ công
-                                                            </span>
-                                                        </div>
-                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                         </label>
@@ -268,22 +255,6 @@ document.querySelectorAll('.bank-radio').forEach(radio => {
         
         if (bank) {
             document.getElementById('selectedBankInfo').classList.remove('hidden');
-            
-            const isAuto = bank.apibanklink ? true : false;
-            const depositInfo = isAuto ? 
-                `<div class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
-                    <p class="text-xs text-green-800 font-medium mb-2">
-                        <i class="fas fa-robot mr-1"></i>Nạp tiền tự động:
-                    </p>
-                    <p class="text-sm text-green-900">Chuyển khoản với nội dung <strong>KVMVPS <?= $_SESSION['username'] ?></strong>, hệ thống sẽ tự động cộng tiền trong vài phút!</p>
-                </div>` :
-                `<div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                    <p class="text-xs text-blue-800 font-medium mb-2">
-                        <i class="fas fa-user mr-1"></i>Nạp tiền thủ công:
-                    </p>
-                    <p class="text-sm text-blue-900">Chuyển khoản với nội dung <strong>KVMVPS <?= $_SESSION['username'] ?></strong> và đợi admin duyệt.</p>
-                </div>`;
-            
             document.getElementById('bankDetails').innerHTML = `
                 <div class="space-y-3">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -308,7 +279,6 @@ document.querySelectorAll('.bank-radio').forEach(radio => {
                         <p class="text-xs text-teal-800 font-medium mb-1">Nội dung chuyển khoản:</p>
                         <p class="text-sm font-mono text-teal-900 font-semibold">KVMVPS <?= $_SESSION['username'] ?></p>
                     </div>
-                    ${depositInfo}
                 </div>
             `;
             

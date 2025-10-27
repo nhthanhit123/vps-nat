@@ -33,6 +33,11 @@ function generateRandomString($length = 10) {
     return $randomString;
 }
 
-
+function cleanInput($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    // $data = htmlspecialchars($data);
+    return $data;
+}
 
 ?>

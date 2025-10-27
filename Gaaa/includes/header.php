@@ -3,58 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <?php
-    // Get SEO settings for current page
-    $current_page = basename($_SERVER['PHP_SELF'], '.php');
-    if ($current_page == 'index') $current_page = 'home';
-    
-    $seo_settings = getSeoSettings($current_page);
-    $site_settings = getSiteSettings();
-    
-    // Use SEO settings if available, otherwise fallback to defaults
-    $title = $seo_settings['meta_title'] ?? ($page_title ?? $site_settings['site_name'] ?? SITE_NAME);
-    $description = $seo_settings['meta_description'] ?? ($page_description ?? $site_settings['site_description'] ?? SITE_DESCRIPTION);
-    $keywords = $seo_settings['meta_keywords'] ?? '';
-    $og_title = $seo_settings['og_title'] ?? $title;
-    $og_description = $seo_settings['og_description'] ?? $description;
-    $og_image = $seo_settings['og_image'] ?? ($site_settings['site_logo'] ?? '');
-    $canonical_url = $seo_settings['canonical_url'] ?? (BASE_URL . $_SERVER['REQUEST_URI']);
-    $robots = $seo_settings['robots'] ?? 'index, follow';
-    ?>
-    
-    <title><?= htmlspecialchars($title) ?></title>
-    <meta name="description" content="<?= htmlspecialchars($description) ?>">
-    <?php if ($keywords): ?>
-        <meta name="keywords" content="<?= htmlspecialchars($keywords) ?>">
-    <?php endif; ?>
-    <meta name="robots" content="<?= htmlspecialchars($robots) ?>">
-    <link rel="canonical" href="<?= htmlspecialchars($canonical_url) ?>">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="<?= htmlspecialchars($canonical_url) ?>">
-    <meta property="og:title" content="<?= htmlspecialchars($og_title) ?>">
-    <meta property="og:description" content="<?= htmlspecialchars($og_description) ?>">
-    <?php if ($og_image): ?>
-        <meta property="og:image" content="<?= htmlspecialchars($og_image) ?>">
-    <?php endif; ?>
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="<?= htmlspecialchars($canonical_url) ?>">
-    <meta property="twitter:title" content="<?= htmlspecialchars($og_title) ?>">
-    <meta property="twitter:description" content="<?= htmlspecialchars($og_description) ?>">
-    <?php if ($og_image): ?>
-        <meta property="twitter:image" content="<?= htmlspecialchars($og_image) ?>">
-    <?php endif; ?>
-    
-    <!-- Favicon -->
-    <?php if (!empty($site_settings['site_favicon'])): ?>
-        <link rel="icon" type="image/x-icon" href="<?= htmlspecialchars($site_settings['site_favicon']) ?>">
-        <link rel="shortcut icon" href="<?= htmlspecialchars($site_settings['site_favicon']) ?>">
-    <?php endif; ?>
-    
+    <title><?= $page_title ?? SITE_NAME ?></title>
+    <meta name="description" content="<?= $page_description ?? SITE_DESCRIPTION ?>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -184,14 +134,7 @@
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-8">
                     <a href="/index.php" class="flex items-center space-x-3">
-                        <?php if (!empty($site_settings['site_logo'])): ?>
-                            <img src="<?= htmlspecialchars($site_settings['site_logo']) ?>" alt="<?= htmlspecialchars($site_settings['site_name'] ?? 'VPS NAT') ?>" style="height: 45px;">
-                        <?php else: ?>
-                            <div class="w-12 h-12 bg-gradient-to-r from-teal-600 to-teal-400 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-server text-white text-xl"></i>
-                            </div>
-                            <span class="text-xl font-bold text-gray-900"><?= htmlspecialchars($site_settings['site_name'] ?? 'VPS NAT') ?></span>
-                        <?php endif; ?>
+                        <img src="https://i.ibb.co/7mzR5qs/image.png" alt="NIFY.VN" style="height: 45px;">
                     </a>
                     
                     <div class="hidden lg:flex items-center space-x-6">
@@ -353,7 +296,7 @@
                         <div class="w-10 h-10 bg-gradient-to-r from-teal-600 to-teal-400 rounded-lg flex items-center justify-center">
                             <i class="fas fa-server text-white text-xl"></i>
                         </div>
-                        <span class="text-2xl font-bold"><?= htmlspecialchars($site_settings['site_name'] ?? 'VPS NAT') ?></span>
+                        <span class="text-2xl font-bold">VPS NAT</span>
                     </div>
                     <p class="text-gray-300 mb-4">Dịch vụ VPS chất lượng cao với giá cả phải chăng, uy tín hàng đầu Việt Nam.</p>
                     <div class="flex space-x-3">
@@ -418,7 +361,7 @@
             <div class="container mx-auto px-4 py-6">
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <div class="text-gray-400 text-sm mb-4 md:mb-0">
-                        &copy; <?= date('Y') ?> <?= htmlspecialchars($site_settings['site_name'] ?? 'VPS NAT') ?>. All rights reserved.
+                        &copy; <?= date('Y') ?> VPS NAT. All rights reserved.
                     </div>
                     <div class="flex space-x-6 text-gray-400 text-sm">
                         <a href="#" class="hover:text-teal-400 smooth-transition">Điều khoản sử dụng</a>
